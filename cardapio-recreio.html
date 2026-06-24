@@ -7,7 +7,121 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700&family=Playfair+Display+SC:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<style>
+:root{
+  --olive:#6B6C4C;--olive-d:#53543A;--olive-dd:#34351F;
+  --cream:#F4F1EC;--cream2:#EBE6D9;--cream3:#FBF9F4;
+  --line:#D8D2C2;--gold:#B98A3E;--ink:#34351F;--muted:#6E6B57;--ok:#1FA855;
+  --r:18px;--shadow:0 16px 34px -18px rgba(52,53,31,.55);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(900px 500px at 80% -10%,rgba(107,108,76,.10),transparent 60%),var(--cream);
+  color:var(--ink);font-family:"Karla",system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:96px}
+.wrap{max-width:520px;margin:0 auto;padding:0 16px}
+
+/* HERO */
+.hero{text-align:center;padding:26px 16px 6px}
+.logo-stage{perspective:800px;display:flex;justify-content:center}
+.logo{width:230px;max-width:64vw;height:auto;transform-style:preserve-3d;transition:transform .15s ease-out;
+  will-change:transform;filter:drop-shadow(0 16px 22px rgba(52,53,31,.22));border-radius:14px}
+.tagline{font-family:"Playfair Display SC",serif;font-size:15px;letter-spacing:.06em;color:var(--olive-d);margin:2px 0 0}
+.hello{color:var(--muted);font-size:14.5px;margin:12px auto 0;max-width:42ch}
+
+/* guest */
+.guest{background:var(--cream3);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:16px 0 4px;display:flex;flex-direction:column;gap:14px}
+.guest .f{flex:1}
+.guest label{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;font-weight:600}
+.guest input{width:100%;height:44px;border:1px solid var(--line);border-radius:12px;background:#fff;padding:0 12px;font-family:inherit;font-size:15px;color:var(--ink)}
+.guest input:focus{outline:2px solid var(--olive);outline-offset:1px;border-color:var(--olive)}
+
+/* chips (escolha de quarto / horário) */
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{flex:1 1 0;min-width:70px;height:44px;border:1px solid var(--line);border-radius:12px;background:#fff;
+  font-family:inherit;font-weight:600;font-size:15px;color:var(--olive-d);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums;
+  transition:background .2s,color .2s,border-color .2s,transform .12s;-webkit-tap-highlight-color:transparent}
+.chip:active{transform:scale(.96)}
+.chip.sel{background:var(--olive);color:var(--cream);border-color:var(--olive);box-shadow:var(--shadow)}
+
+/* tabs */
+.tabs{position:sticky;top:0;z-index:30;display:flex;gap:8px;overflow-x:auto;margin:8px -16px 0;padding:12px 16px;
+  background:var(--cream);border-bottom:1px solid rgba(216,210,194,.6);scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;height:42px;padding:0 15px;border-radius:999px;border:1px solid var(--line);background:#fff;
+  font-family:inherit;font-weight:600;font-size:14px;color:var(--olive-d);cursor:pointer;white-space:nowrap;
+  display:flex;align-items:center;gap:7px;transition:background .2s,color .2s}
+.tab.active{background:var(--olive);color:var(--cream);border-color:var(--olive)}
+.tab svg{width:17px;height:17px}
+.tab .cnt{min-width:18px;height:18px;border-radius:9px;background:var(--gold);color:#fff;font-size:11px;align-items:center;justify-content:center;padding:0 5px;font-weight:700;display:none}
+.tab .cnt.show{display:flex}
+
+/* category */
+.cat{padding-top:22px}
+.cat h2{font-family:"Playfair Display SC",serif;font-weight:700;font-size:22px;color:var(--olive-dd);margin:0 0 2px;display:flex;align-items:center;gap:10px}
+.cat h2 svg{width:22px;height:22px;color:var(--olive)}
+.cat .sub{color:var(--muted);font-size:13px;margin:0 0 14px}
+.grid{display:grid;gap:12px}
+
+/* item — VISIBLE BY DEFAULT; animation is enhancement only */
+.item{background:var(--cream3);border:1px solid var(--line);border-radius:var(--r);padding:13px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  box-shadow:0 2px 0 rgba(216,210,194,.6);transition:box-shadow .22s,border-color .2s,background .2s;
+  opacity:1;animation:itemIn .5s both}
+@keyframes itemIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.grid .item:nth-child(1){animation-delay:.02s}.grid .item:nth-child(2){animation-delay:.06s}
+.grid .item:nth-child(3){animation-delay:.10s}.grid .item:nth-child(4){animation-delay:.14s}
+.grid .item:nth-child(5){animation-delay:.18s}.grid .item:nth-child(6){animation-delay:.22s}
+.grid .item:nth-child(7){animation-delay:.26s}.grid .item:nth-child(8){animation-delay:.30s}
+.item.sel{border-color:var(--olive);box-shadow:var(--shadow);background:#fff}
+.item .name{font-weight:600;font-size:16px;color:var(--ink)}
+.stepper{display:flex;align-items:center;gap:6px;flex:none}
+.stepper button{width:44px;height:44px;border-radius:13px;border:1px solid var(--line);background:#fff;color:var(--olive-d);
+  font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .12s;-webkit-tap-highlight-color:transparent}
+.stepper button:active{transform:scale(.9)}
+.stepper button.add{background:var(--olive);color:var(--cream);border-color:var(--olive)}
+.stepper .qty{min-width:22px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums;font-size:16px;display:none}
+.stepper .minus{display:none}
+.item.sel .stepper .qty,.item.sel .stepper .minus{display:flex;align-items:center;justify-content:center}
+
+/* cart bar */
+.cartbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:linear-gradient(rgba(244,241,236,0),var(--cream) 34%);padding:14px 16px calc(14px + env(safe-area-inset-bottom))}
+.cartbar .inner{max-width:520px;margin:0 auto}
+.cartbtn{width:100%;height:56px;border:0;border-radius:16px;background:var(--olive);color:var(--cream);font-family:inherit;font-weight:700;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:var(--shadow);transition:transform .14s,opacity .2s}
+.cartbtn:active{transform:scale(.98)}
+.cartbtn[disabled]{opacity:.45}
+.cartbtn .badge{min-width:24px;height:24px;border-radius:12px;background:var(--cream);color:var(--olive);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;padding:0 6px}
+.cartbtn svg{width:20px;height:20px}
+
+/* modal */
+.scrim{position:fixed;inset:0;background:rgba(52,53,31,.5);z-index:50;opacity:0;pointer-events:none;transition:opacity .25s}
+.scrim.open{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--cream);border-radius:24px 24px 0 0;max-width:520px;margin:0 auto;max-height:88vh;overflow-y:auto;transform:translateY(102%);transition:transform .32s cubic-bezier(.22,1,.36,1);padding:8px 18px calc(20px + env(safe-area-inset-bottom));box-shadow:0 -20px 50px -20px rgba(0,0,0,.4)}
+.sheet.open{transform:translateY(0)}
+.grab{width:42px;height:5px;border-radius:3px;background:var(--line);margin:8px auto 6px}
+.sheet h3{font-family:"Playfair Display SC",serif;font-size:22px;color:var(--olive-dd);margin:6px 0 2px;text-align:center}
+.sh-sub{text-align:center;color:var(--muted);font-size:13px;margin:0 0 8px}
+.ord-cat{font-family:"Playfair Display SC",serif;font-size:14px;letter-spacing:.06em;color:var(--olive);text-transform:uppercase;margin:16px 0 4px;border-bottom:1px solid var(--line);padding-bottom:5px}
+.ord-line{display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-size:15.5px}
+.ord-line .q{font-weight:700;color:var(--olive-d);font-variant-numeric:tabular-nums;min-width:34px}
+.ord-line .nm{flex:1}
+.ord-line .rm{border:0;background:none;color:var(--muted);font-size:13px;cursor:pointer;text-decoration:underline}
+.extra label{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:12px 0 5px;font-weight:600}
+.extra input,.extra textarea{width:100%;border:1px solid var(--line);border-radius:12px;background:#fff;padding:11px 12px;font-family:inherit;font-size:15px;color:var(--ink);resize:vertical}
+.extra input:focus,.extra textarea:focus{outline:2px solid var(--olive);outline-offset:1px;border-color:var(--olive)}
+.send{width:100%;height:54px;margin-top:18px;border:0;border-radius:15px;background:var(--ok);color:#fff;font-family:inherit;font-weight:700;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:transform .14s}
+.send:active{transform:scale(.98)}
+.send svg{width:21px;height:21px}
+.empty{text-align:center;color:var(--muted);padding:24px 0;font-size:14px}
+.foot{text-align:center;color:var(--muted);font-size:11.5px;padding:24px 16px 8px;line-height:1.7}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .logo{transform:none!important}.item{opacity:1!important;transform:none!important}
+}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -65,6 +179,93 @@
   </div>
 </section>
 
-<script src="script.js"></script>
+<script>
+var WHATSAPP="5524999643048"; // (24) 99964-3048
+var order={};
+var selRoom="",selTime="";
+function pickChip(group,btn,attr){
+  var was=btn.classList.contains('sel');
+  var els=document.getElementById(group).querySelectorAll('.chip');
+  for(var i=0;i<els.length;i++)els[i].classList.remove('sel');
+  if(was)return "";
+  btn.classList.add('sel');
+  return btn.getAttribute(attr);
+}
+function wireChips(group,attr,setter){
+  var els=document.getElementById(group).querySelectorAll('.chip');
+  for(var i=0;i<els.length;i++){(function(b){b.onclick=function(){setter(pickChip(group,b,attr));};})(els[i]);}
+}
+wireChips('rooms','data-room',function(v){selRoom=v;});
+wireChips('times','data-time',function(v){selTime=v;});
+function goTo(id){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+function chg(id,d){
+  var card=document.getElementById('it-'+id);if(!card)return;
+  var cur=order[id]?order[id].qty:0;var q=Math.max(0,cur+d);
+  if(q<=0){delete order[id];}else{order[id]={name:card.dataset.name,cat:card.dataset.cat,qty:q};}
+  var qel=document.getElementById('q-'+id);if(qel)qel.textContent=q;
+  card.classList.toggle('sel',q>0);
+  refresh();
+}
+function refresh(){
+  var total=0,perCat={};
+  for(var k in order){total+=order[k].qty;var ci=k.split('_')[0];perCat[ci]=(perCat[ci]||0)+order[k].qty;}
+  for(var i=0;i<4;i++){var el=document.getElementById('cnt-'+i);if(el){el.textContent=perCat[i]||0;el.classList.toggle('show',!!perCat[i]);}}
+  var btn=document.getElementById('cartbtn'),b=document.getElementById('cartbadge'),l=document.getElementById('cartlabel');
+  if(total>0){btn.disabled=false;b.style.display='flex';b.textContent=total;l.textContent='Ver pedido e enviar';}
+  else{btn.disabled=true;b.style.display='none';l.textContent='Selecione seu café da manhã';}
+}
+var CATNAMES=["Bebidas","Pães e massas","Doces","Frios"];
+var scrim=document.getElementById('scrim'),sheet=document.getElementById('sheet');
+function openSheet(){buildOrder();scrim.classList.add('open');sheet.classList.add('open');}
+function closeSheet(){scrim.classList.remove('open');sheet.classList.remove('open');}
+document.getElementById('cartbtn').onclick=function(){if(Object.keys(order).length)openSheet();};
+scrim.onclick=closeSheet;
+function buildOrder(){
+  var list=document.getElementById('ordlist');var keys=Object.keys(order);
+  if(!keys.length){list.innerHTML='<p class="empty">Nenhum item ainda.</p>';return;}
+  var html='';
+  for(var ci=0;ci<4;ci++){
+    var its=keys.filter(function(k){return k.indexOf(ci+'_')===0;});
+    if(!its.length)continue;
+    html+='<div class="ord-cat">'+CATNAMES[ci]+'</div>';
+    its.forEach(function(k){var o=order[k];
+      html+='<div class="ord-line"><span class="q">'+o.qty+'x</span><span class="nm">'+o.name+'</span><button class="rm" onclick="chg(\''+k+'\',-99);refreshSheet()">remover</button></div>';});
+  }
+  list.innerHTML=html;
+}
+function refreshSheet(){buildOrder();if(!Object.keys(order).length)closeSheet();}
+document.getElementById('send').onclick=function(){
+  var keys=Object.keys(order);if(!keys.length)return;
+  var nome=document.getElementById('g-nome').value.trim();
+  var quarto=selRoom;
+  var hora=selTime;
+  var obs=document.getElementById('g-obs').value.trim();
+  var m='*Pedido de café da manhã — RECREIO* (Casa Caiçara)\n';
+  if(nome)m+='Hóspede: '+nome+'\n';
+  if(quarto)m+='Quarto: '+quarto+'\n';
+  for(var ci=0;ci<4;ci++){
+    var its=keys.filter(function(k){return k.indexOf(ci+'_')===0;});
+    if(!its.length)continue;
+    m+='\n*'+CATNAMES[ci].toUpperCase()+'*\n';
+    its.forEach(function(k){m+='• '+order[k].qty+'x '+order[k].name+'\n';});
+  }
+  if(hora)m+='\nHorário desejado: '+hora+'\n';
+  if(obs)m+='Observações: '+obs+'\n';
+  window.open('https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(m),'_blank');
+};
+// 3D tilt logo
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  var logo=document.getElementById('logo'),stage=document.querySelector('.logo-stage');
+  stage.addEventListener('pointermove',function(e){
+    var r=stage.getBoundingClientRect();
+    var x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    logo.style.transform='rotateY('+(x*18)+'deg) rotateX('+(-y*18)+'deg)';
+  });
+  stage.addEventListener('pointerleave',function(){logo.style.transform='';});
+})();
+refresh();
+
+</script>
 </body>
 </html>

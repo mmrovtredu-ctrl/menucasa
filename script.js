@@ -1,5 +1,20 @@
 var WHATSAPP="5524999643048"; // (24) 99964-3048
 var order={};
+var selRoom="",selTime="";
+function pickChip(group,btn,attr){
+  var was=btn.classList.contains('sel');
+  var els=document.getElementById(group).querySelectorAll('.chip');
+  for(var i=0;i<els.length;i++)els[i].classList.remove('sel');
+  if(was)return "";
+  btn.classList.add('sel');
+  return btn.getAttribute(attr);
+}
+function wireChips(group,attr,setter){
+  var els=document.getElementById(group).querySelectorAll('.chip');
+  for(var i=0;i<els.length;i++){(function(b){b.onclick=function(){setter(pickChip(group,b,attr));};})(els[i]);}
+}
+wireChips('rooms','data-room',function(v){selRoom=v;});
+wireChips('times','data-time',function(v){selTime=v;});
 function goTo(id){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
 function chg(id,d){
   var card=document.getElementById('it-'+id);if(!card)return;
@@ -40,12 +55,12 @@ function refreshSheet(){buildOrder();if(!Object.keys(order).length)closeSheet();
 document.getElementById('send').onclick=function(){
   var keys=Object.keys(order);if(!keys.length)return;
   var nome=document.getElementById('g-nome').value.trim();
-  var quarto=document.getElementById('g-quarto').value.trim();
-  var hora=document.getElementById('g-hora').value.trim();
+  var quarto=selRoom;
+  var hora=selTime;
   var obs=document.getElementById('g-obs').value.trim();
   var m='*Pedido de café da manhã — RECREIO* (Casa Caiçara)\n';
   if(nome)m+='Hóspede: '+nome+'\n';
-  if(quarto)m+='Quarto/Suíte: '+quarto+'\n';
+  if(quarto)m+='Quarto: '+quarto+'\n';
   for(var ci=0;ci<4;ci++){
     var its=keys.filter(function(k){return k.indexOf(ci+'_')===0;});
     if(!its.length)continue;

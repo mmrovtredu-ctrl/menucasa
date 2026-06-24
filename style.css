@@ -19,11 +19,20 @@ body{margin:0;background:radial-gradient(900px 500px at 80% -10%,rgba(107,108,76
 .hello{color:var(--muted);font-size:14.5px;margin:12px auto 0;max-width:42ch}
 
 /* guest */
-.guest{background:var(--cream3);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:16px 0 4px;display:flex;gap:10px}
+.guest{background:var(--cream3);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:16px 0 4px;display:flex;flex-direction:column;gap:14px}
 .guest .f{flex:1}
 .guest label{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;font-weight:600}
 .guest input{width:100%;height:44px;border:1px solid var(--line);border-radius:12px;background:#fff;padding:0 12px;font-family:inherit;font-size:15px;color:var(--ink)}
 .guest input:focus{outline:2px solid var(--olive);outline-offset:1px;border-color:var(--olive)}
+
+/* chips (escolha de quarto / horário) */
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{flex:1 1 0;min-width:70px;height:44px;border:1px solid var(--line);border-radius:12px;background:#fff;
+  font-family:inherit;font-weight:600;font-size:15px;color:var(--olive-d);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums;
+  transition:background .2s,color .2s,border-color .2s,transform .12s;-webkit-tap-highlight-color:transparent}
+.chip:active{transform:scale(.96)}
+.chip.sel{background:var(--olive);color:var(--cream);border-color:var(--olive);box-shadow:var(--shadow)}
 
 /* tabs */
 .tabs{position:sticky;top:0;z-index:30;display:flex;gap:8px;overflow-x:auto;margin:8px -16px 0;padding:12px 16px;
